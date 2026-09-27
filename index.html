@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>For You ♡</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+
+    <style>
+
+        /* =========================
+           GENERAL
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f8f3ef;
+            color: #332a2d;
+            font-family: "DM Sans", sans-serif;
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           FLOATING BACKGROUND HEARTS
+        ========================= */
+
+        .floating-heart {
+            position: fixed;
+            bottom: -30px;
+            color: rgba(160, 105, 120, 0.25);
+            font-size: 18px;
+            pointer-events: none;
+            animation: floatUp linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes floatUp {
+
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-110vh) rotate(25deg);
+                opacity: 0;
+            }
+
+        }
+
+
+        /* =========================
+           ENTRANCE
+        ========================= */
+
+        #entrance {
+            position: fixed;
+            inset: 0;
+            background: #f8f3ef;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            z-index: 100;
+
+            transition:
+                opacity 1s ease,
+                visibility 1s ease;
+        }
+
+        #entrance.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .entrance-content {
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+        }
+
+        .small-line {
+            font-size: 12px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #9b7c86;
+            margin-bottom: 25px;
+
+            animation: fadeUp 1.2s ease forwards;
+        }
+
+        .entrance-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(60px, 12vw, 110px);
+            font-weight: 500;
+            line-height: 0.9;
+            margin-bottom: 25px;
+
+            animation: fadeUp 1.5s ease forwards;
+        }
+
+        .entrance-subtitle {
+            font-size: 14px;
+            color: #786a6f;
+            margin-bottom: 35px;
+
+            animation: fadeUp 1.8s ease forwards;
+        }
+
+        .open-button {
+            border: 1px solid #5c474e;
+            background: transparent;
+            color: #332a2d;
+
+            padding: 13px 28px;
+
+            border-radius: 50px;
+
+            font-family: "DM Sans", sans-serif;
+            font-size: 13px;
+            letter-spacing: 1px;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+            animation: fadeUp 2.1s ease forwards;
+        }
+
+        .open-button:hover {
+            background: #332a2d;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+        ========================= */
+
+        #website {
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        #website.visible {
+            opacity: 1;
+        }
+
+
+        /* =========================
+           LETTER SECTION
+        ========================= */
+
+        .letter-section {
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 100px 25px;
+
+            position: relative;
+        }
+
+        .letter-wrapper {
+            width: 100%;
+            max-width: 760px;
+        }
+
+        .letter-label {
+            text-align: center;
+
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+
+            color: #9b7c86;
+
+            margin-bottom: 35px;
+        }
+
+        .letter {
+            background: #fffdfb;
+
+            padding: clamp(35px, 7vw, 70px);
+
+            box-shadow:
+                0 20px 60px rgba(70, 50, 55, 0.08);
+
+            position: relative;
+
+            border: 1px solid rgba(120, 90, 100, 0.08);
+        }
+
+        /* little corner decoration */
+
+        .letter::before {
+            content: "♡";
+
+            position: absolute;
+            top: 25px;
+            right: 30px;
+
+            color: #b58b98;
+            font-size: 20px;
+        }
+
+        .letter-date {
+            font-size: 11px;
+            color: #a18d94;
+            margin-bottom: 35px;
+        }
+
+        .letter h1 {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: clamp(35px, 6vw, 52px);
+
+            font-weight: 500;
+
+            margin-bottom: 30px;
+        }
+
+        .letter p {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: clamp(18px, 2.5vw, 21px);
+
+            line-height: 1.8;
+
+            color: #4a3d41;
+
+            margin-bottom: 22px;
+        }
+
+        .signature {
+            margin-top: 40px;
+
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 24px;
+
+            font-style: italic;
+        }
+
+
+        /* =========================
+           PHOTO SECTION
+        ========================= */
+
+        .photos-section {
+            padding: 100px 25px 130px;
+
+            max-width: 1050px;
+
+            margin: auto;
+        }
+
+        .section-heading {
+            text-align: center;
+
+            margin-bottom: 65px;
+        }
+
+        .section-heading .tiny {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #9b7c86;
+
+            margin-bottom: 15px;
+        }
+
+        .section-heading h2 {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: clamp(45px, 7vw, 70px);
+
+            font-weight: 500;
+        }
+
+
+        /* =========================
+           PHOTO GRID
+        ========================= */
+
+        .photo-grid {
+            display: grid;
+
+            grid-template-columns: repeat(12, 1fr);
+
+            gap: 22px;
+
+            align-items: center;
+        }
+
+        .photo {
+            position: relative;
+
+            background: white;
+
+            padding: 10px 10px 35px;
+
+            box-shadow:
+                0 15px 35px rgba(60, 40, 45, 0.10);
+
+            transition:
+                transform 0.4s ease,
+                box-shadow 0.4s ease;
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        .photo:hover {
+            transform: translateY(-8px) rotate(0deg) !important;
+
+            box-shadow:
+                0 25px 45px rgba(60, 40, 45, 0.15);
+        }
+
+        .photo-caption {
+            position: absolute;
+
+            bottom: 8px;
+            left: 0;
+            right: 0;
+
+            text-align: center;
+
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: 17px;
+
+            color: #6c5960;
+        }
+
+
+        /* Individual photo positions */
+
+        .photo:nth-child(1) {
+            grid-column: 1 / 6;
+            aspect-ratio: 4 / 5;
+            transform: rotate(-3deg);
+        }
+
+        .photo:nth-child(2) {
+            grid-column: 7 / 13;
+            aspect-ratio: 1 / 1;
+            transform: rotate(3deg);
+        }
+
+        .photo:nth-child(3) {
+            grid-column: 2 / 7;
+            aspect-ratio: 1 / 1;
+            transform: rotate(2deg);
+        }
+
+        .photo:nth-child(4) {
+            grid-column: 8 / 13;
+            aspect-ratio: 4 / 5;
+            transform: rotate(-2deg);
+        }
+
+        .photo:nth-child(5) {
+            grid-column: 4 / 10;
+            aspect-ratio: 1 / 1;
+            transform: rotate(1deg);
+        }
+
+
+        /* =========================
+           FINAL MESSAGE
+        ========================= */
+
+        .ending {
+            min-height: 80vh;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+
+            text-align: center;
+
+            padding: 80px 25px;
+        }
+
+        .ending-heart {
+            font-size: 45px;
+
+            color: #a97888;
+
+            margin-bottom: 25px;
+
+            animation: heartbeat 2s infinite;
+        }
+
+        .ending h2 {
+            font-family: "Cormorant Garamond", serif;
+
+            font-size: clamp(45px, 8vw, 75px);
+
+            font-weight: 500;
+
+            margin-bottom: 20px;
+        }
+
+        .ending p {
+            color: #75666b;
+
+            font-size: 14px;
+
+            max-width: 450px;
+
+            line-height: 1.8;
+        }
+
+        .ending-small {
+            margin-top: 50px;
+
+            font-size: 11px;
+
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+
+            color: #a18d94;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            padding: 30px;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            color: #aa989e;
+        }
+
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        @keyframes heartbeat {
+
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.12);
+            }
+
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 650px) {
+
+            .letter-section {
+                padding: 70px 18px;
+            }
+
+            .letter {
+                padding: 35px 25px;
+            }
+
+            .photos-section {
+                padding: 70px 18px 100px;
+            }
+
+            .photo-grid {
+                display: flex;
+                flex-direction: column;
+                gap: 35px;
+            }
+
+            .photo {
+                width: 85%;
+            }
+
+            .photo:nth-child(1) {
+                align-self: flex-start;
+            }
+
+            .photo:nth-child(2) {
+                align-self: flex-end;
+            }
+
+            .photo:nth-child(3) {
+                align-self: flex-start;
+            }
+
+            .photo:nth-child(4) {
+                align-self: flex-end;
+            }
+
+            .photo:nth-child(5) {
+                align-self: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ======================================
+         FLOATING HEARTS
+    ======================================= -->
+
+    <div class="floating-heart" style="left: 8%; animation-duration: 13s;">♡</div>
+    <div class="floating-heart" style="left: 20%; animation-duration: 17s; animation-delay: 3s;">♡</div>
+    <div class="floating-heart" style="left: 40%; animation-duration: 15s; animation-delay: 1s;">♡</div>
+    <div class="floating-heart" style="left: 62%; animation-duration: 19s; animation-delay: 5s;">♡</div>
+    <div class="floating-heart" style="left: 82%; animation-duration: 14s; animation-delay: 2s;">♡</div>
+
+
+    <!-- ======================================
+         ENTRANCE
+    ======================================= -->
+
+    <div id="entrance">
+
+        <div class="entrance-content">
+
+            <div class="small-line">
+                a little something
+            </div>
+
+            <h1 class="entrance-title">
+                For Aditi
+            </h1>
+
+            <p class="entrance-subtitle">
+                because apparently a normal text wasn't enough.
+            </p>
+
+            <button class="open-button" onclick="openWebsite()">
+                open this ♡
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ======================================
+         MAIN WEBSITE
+    ======================================= -->
+
+    <main id="website">
+
+
+        <!-- ==================================
+             LETTER
+        =================================== -->
+
+        <section class="letter-section">
+
+            <div class="letter-wrapper">
+
+                <div class="letter-label">
+                    a letter for you
+                </div>
+
+
+                <div class="letter">
+
+                    <div class="letter-date">
+                        28 September 2026
+                    </div>
+
+
+                    <h1>
+                        Dear Aditi,
+                    </h1>
+
+
+                  <p>
+    Happy Birththrthrthdaydayyyy cutttieee. I totallysyryt
+    donttntnt misssuuu andddadnadnadd haveee the best 18th
+    birthday.
+</p>
+
+<p>
+    I miss our econ classes and all those yapping in between
+    the classes and sososooomuch more.
+</p>
+
+<p>
+    Have so much fun and dont forget me cuz im gonna haunt u
+    in ur dreams everyday. Loveuloads pls takecare and try
+    giving the Common Grounds coffee shop a chance.
+</p>
+
+<p>
+    LOVE U LOADSSS TAKE CARESZZZ MWAHMWAHMWAH ♡
+</p>
+
+                    
+
+                    <div class="signature">
+
+                        Love,<br>
+                        From Yashita ♡
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================
+             PHOTOS
+        =================================== -->
+
+        <section class="photos-section">
+
+
+            <div class="section-heading">
+
+                <div class="tiny">
+                    little pieces of us
+                </div>
+
+                <h2>
+                    Some memories ♡
+                </h2>
+
+            </div>
+
+   <!-- PHOTO 1 -->
+
+                <div class="photo">
+
+                    <img src="photo1.jpeg" alt="Memory 1">
+
+                    <div class="photo-caption">
+                        this one >>> 
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 2 -->
+
+                <div class="photo">
+
+                    <img src="photo2.jpeg" alt="Memory 2">
+
+                    <div class="photo-caption">
+                        core memory
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 3 -->
+
+                <div class="photo">
+
+                    <img src="photo3.jpeg" alt="Memory 3">
+
+                    <div class="photo-caption">
+                        us being us
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 4 -->
+
+                <div class="photo">
+
+                    <img src="photo4.jpeg" alt="Memory 4">
+
+                    <div class="photo-caption">
+                        one of my favourites
+                    </div>
+
+                </div>
+
+
+                <!-- PHOTO 5 -->
+
+                <div class="photo">
+
+                    <img src="photo5.jpeg" alt="Memory 5">
+
+                    <div class="photo-caption">
+                        ♡
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==================================
+             ENDING
+        =================================== -->
+
+        <section class="ending">
+
+            <div class="ending-heart">
+                ♡
+            </div>
+
+            <h2>
+                I'm glad you're here.
+            </h2>
+
+            <p>
+                That's basically the whole point of this little
+                website. Just a reminder that you're very loved,
+                very appreciated, and very much stuck with me.
+            </p>
+
+            <div class="ending-small">
+                made just for you
+            </div>
+
+        </section>
+
+
+
+        <footer>
+            with way too much effort ♡
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- ======================================
+         JAVASCRIPT
+    ======================================= -->
+
+    <script>
+
+        function openWebsite() {
+
+            const entrance = document.getElementById("entrance");
+            const website = document.getElementById("website");
+
+            entrance.classList.add("hidden");
+
+            setTimeout(function() {
+
+                website.classList.add("visible");
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }, 500);
+
+        }
+
+    </script>
+
+
+</body>
+</html>
